@@ -21,7 +21,6 @@ export default function Navbar() {
             <Link to="/dashboard">Dashboard</Link>
             <Link to="/problems">Problems</Link>
             <Link to="/leaderboard">Leaderboard</Link>
-            {user.role === 'ADMIN' && <Link to="/admin">Admin Panel</Link>}
             <span className="navbar-user">Hi, {user.name}</span>
             <button className="btn-link" onClick={handleLogout}>Logout</button>
           </>

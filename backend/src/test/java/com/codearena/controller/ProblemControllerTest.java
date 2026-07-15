@@ -1,7 +1,5 @@
 package com.codearena.controller;
 
-import com.codearena.dto.ProblemAdminResponseDto;
-import com.codearena.dto.ProblemRequestDto;
 import com.codearena.entity.Problem;
 import com.codearena.entity.TestCase;
 import com.codearena.service.ProblemService;
