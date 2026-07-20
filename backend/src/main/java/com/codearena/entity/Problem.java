@@ -49,6 +49,15 @@ public class Problem {
     @Column(columnDefinition = "TEXT")
     private String starterCodeCpp;
 
+    @Column(length = 100)
+    private String expectedTimeComplexity;
+
+    @Column(length = 100)
+    private String expectedSpaceComplexity;
+
+    @Column(columnDefinition = "TEXT")
+    private String solution;
+
     private Long createdBy;
 
     private LocalDateTime createdAt = LocalDateTime.now();

@@ -38,6 +38,10 @@ public class User {
     @Column(nullable = false)
     private Role role = Role.USER;
 
+    private String resetToken;
+
+    private LocalDateTime resetTokenExpiry;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 }

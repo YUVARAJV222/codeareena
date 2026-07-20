@@ -44,6 +44,11 @@ export default function Login() {
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
         <label>Password</label>
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '-8px' }}>
+          <Link to="/forgot-password" style={{ fontSize: '13px' }}>Forgot password?</Link>
+        </div>
+
         <button type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
 
         <div className="auth-divider"><span>or</span></div>

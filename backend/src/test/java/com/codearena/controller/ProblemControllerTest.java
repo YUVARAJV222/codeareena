@@ -3,6 +3,8 @@ package com.codearena.controller;
 import com.codearena.entity.Problem;
 import com.codearena.entity.TestCase;
 import com.codearena.service.ProblemService;
+import com.codearena.dto.ProblemAdminResponseDto;
+import com.codearena.dto.ProblemRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

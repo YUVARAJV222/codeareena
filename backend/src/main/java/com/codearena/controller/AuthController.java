@@ -52,6 +52,38 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> body) {
+        String email = body.get("email");
+        if (email == null || email.isBlank()) {
+            return ResponseEntity.badRequest().body(errorBody("Email is required"));
+        }
+        try {
+            authService.forgotPassword(email);
+            return ResponseEntity.ok(Map.of("message", "Password reset email sent successfully"));
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(errorBody(ex.getMessage()));
+        }
+    }
+
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> body) {
+        String token = body.get("token");
+        String newPassword = body.get("newPassword");
+        if (token == null || token.isBlank()) {
+            return ResponseEntity.badRequest().body(errorBody("Token is required"));
+        }
+        if (newPassword == null || newPassword.isBlank()) {
+            return ResponseEntity.badRequest().body(errorBody("New password is required"));
+        }
+        try {
+            authService.resetPassword(token, newPassword);
+            return ResponseEntity.ok(Map.of("message", "Password reset successfully"));
+        } catch (IllegalArgumentException ex) {
+            return ResponseEntity.badRequest().body(errorBody(ex.getMessage()));
+        }
+    }
+
     private Map<String, String> errorBody(String message) {
         return Map.of("error", message);
     }

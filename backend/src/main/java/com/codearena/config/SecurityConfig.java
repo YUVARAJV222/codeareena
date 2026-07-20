@@ -55,8 +55,12 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/problems/*/admin").hasRole("ADMIN")
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/problems/**").permitAll()
                         .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/leaderboard/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.POST, "/api/problems/**").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.PUT, "/api/problems/**").hasRole("ADMIN")
+                        .requestMatchers(org.springframework.http.HttpMethod.DELETE, "/api/problems/**").hasRole("ADMIN")
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 )

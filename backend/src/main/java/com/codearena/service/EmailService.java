@@ -51,6 +51,19 @@ public class EmailService {
         send(toEmail, subject, body);
     }
 
+    @Async
+    public void sendPasswordResetEmail(String toEmail, String name, String token) {
+        String subject = "CodeArena Password Reset Request";
+        String body = "Hi " + name + ",\n\n"
+                + "You requested to reset your password on CodeArena.\n"
+                + "Please use the following link to reset your password:\n\n"
+                + "http://localhost:5173/reset-password?token=" + token + "\n\n"
+                + "This link will expire in 15 minutes.\n\n"
+                + "If you did not make this request, please ignore this email.\n\n"
+                + "Team CodeArena";
+        send(toEmail, subject, body);
+    }
+
     private void send(String toEmail, String subject, String body) {
         if (!mailEnabled || fromAddress == null || fromAddress.isBlank()) {
             log.info("Mail disabled/unconfigured - skipping email to {} (subject: {})", toEmail, subject);

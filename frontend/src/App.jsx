@@ -8,6 +8,10 @@ import Dashboard from './pages/Dashboard'
 import ProblemList from './pages/ProblemList'
 import ProblemDetail from './pages/ProblemDetail'
 import Leaderboard from './pages/Leaderboard'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
+import AdminDashboard from './pages/AdminDashboard'
+import ProblemForm from './pages/ProblemForm'
 
 export default function App() {
   return (
@@ -17,6 +21,8 @@ export default function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={
           <ProtectedRoute><Dashboard /></ProtectedRoute>
         } />
@@ -28,6 +34,15 @@ export default function App() {
         } />
         <Route path="/leaderboard" element={
           <ProtectedRoute><Leaderboard /></ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <ProtectedRoute adminOnly={true}><AdminDashboard /></ProtectedRoute>
+        } />
+        <Route path="/admin/problems/new" element={
+          <ProtectedRoute adminOnly={true}><ProblemForm /></ProtectedRoute>
+        } />
+        <Route path="/admin/problems/:id/edit" element={
+          <ProtectedRoute adminOnly={true}><ProblemForm /></ProtectedRoute>
         } />
       </Routes>
     </AuthProvider>

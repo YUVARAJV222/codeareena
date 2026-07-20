@@ -63,6 +63,7 @@ export default function ProblemDetail() {
   const { id } = useParams()
   const [problem, setProblem] = useState(null)
   const [language, setLanguage] = useState('PYTHON3')
+  const [leftTab, setLeftTab] = useState('description')
   const [codes, setCodes] = useState(TEMPLATES)
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
@@ -140,19 +141,106 @@ export default function ProblemDetail() {
       <div className="problem-panel">
         <h1>{problem.title}</h1>
         <span className={`difficulty-badge difficulty-${problem.difficulty}`}>{problem.difficulty}</span>
-        <pre className="problem-description">{problem.description}</pre>
 
-        <h3>Sample Input</h3>
-        <pre className="code-block">{problem.sampleInput}</pre>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--border)', margin: '20px 0 24px 0', gap: '8px' }}>
+          <button
+            onClick={() => setLeftTab('description')}
+            style={{
+              padding: '10px 18px',
+              background: 'none',
+              border: 'none',
+              borderBottom: leftTab === 'description' ? '2px solid var(--primary)' : 'none',
+              color: leftTab === 'description' ? 'var(--text-primary)' : 'var(--text-muted)',
+              fontWeight: '600',
+              cursor: 'pointer',
+              fontSize: '14px',
+              outline: 'none',
+              transition: 'var(--transition)'
+            }}
+          >
+            Description
+          </button>
+          <button
+            onClick={() => setLeftTab('solution')}
+            style={{
+              padding: '10px 18px',
+              background: 'none',
+              border: 'none',
+              borderBottom: leftTab === 'solution' ? '2px solid var(--primary)' : 'none',
+              color: leftTab === 'solution' ? 'var(--text-primary)' : 'var(--text-muted)',
+              fontWeight: '600',
+              cursor: 'pointer',
+              fontSize: '14px',
+              outline: 'none',
+              transition: 'var(--transition)'
+            }}
+          >
+            Solution
+          </button>
+        </div>
 
-        <h3>Sample Output</h3>
-        <pre className="code-block">{problem.sampleOutput}</pre>
-
-        {problem.constraints && (
+        {leftTab === 'description' ? (
           <>
-            <h3>Constraints</h3>
-            <pre className="code-block" style={{ whiteSpace: 'pre-wrap' }}>{problem.constraints}</pre>
+            <pre className="problem-description">{problem.description}</pre>
+
+            {(problem.expectedTimeComplexity || problem.expectedSpaceComplexity) && (
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+                margin: '24px 0',
+                padding: '16px',
+                background: 'var(--bg-primary)',
+                borderRadius: '8px',
+                border: '1px solid var(--border)',
+                fontSize: '13px'
+              }}>
+                {problem.expectedTimeComplexity && (
+                  <div>
+                    <strong style={{ color: 'var(--text-secondary)' }}>Expected Time Complexity:</strong>{' '}
+                    <code style={{ fontFamily: 'var(--font-mono)', background: 'var(--bg-tertiary)', padding: '2px 6px', borderRadius: '4px', color: 'var(--primary)' }}>
+                      {problem.expectedTimeComplexity}
+                    </code>
+                  </div>
+                )}
+                {problem.expectedSpaceComplexity && (
+                  <div style={{ marginTop: problem.expectedTimeComplexity ? '4px' : '0' }}>
+                    <strong style={{ color: 'var(--text-secondary)' }}>Expected Space Complexity:</strong>{' '}
+                    <code style={{ fontFamily: 'var(--font-mono)', background: 'var(--bg-tertiary)', padding: '2px 6px', borderRadius: '4px', color: 'var(--primary)' }}>
+                      {problem.expectedSpaceComplexity}
+                    </code>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <h3>Sample Input</h3>
+            <pre className="code-block">{problem.sampleInput}</pre>
+
+            <h3>Sample Output</h3>
+            <pre className="code-block">{problem.sampleOutput}</pre>
+
+            {problem.constraints && (
+              <>
+                <h3>Constraints</h3>
+                <pre className="code-block" style={{ whiteSpace: 'pre-wrap' }}>{problem.constraints}</pre>
+              </>
+            )}
           </>
+        ) : (
+          <div>
+            {problem.solution ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <pre className="problem-description" style={{ fontSize: '15px', color: 'var(--text-secondary)', lineHeight: '1.7', whiteSpace: 'pre-wrap' }}>
+                  {problem.solution}
+                </pre>
+              </div>
+            ) : (
+              <div className="empty-state" style={{ padding: '40px 0', textAlign: 'center', color: 'var(--text-muted)' }}>
+                No solution explanation available for this problem yet.
+              </div>
+            )}
+          </div>
         )}
       </div>
 
